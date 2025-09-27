@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class TapToPlaceToggleModel : MonoBehaviour
 {
     [Header("Prefabs & Assets")]
-    public GameObject modelPrefab;  // Prefab to instantiate
-    public RuntimeAnimatorController animatorController;  // Animator Controller asset
+    public GameObject modelPrefab;
+    public RuntimeAnimatorController animatorController;
 
     [Header("AR Components")]
     public ARRaycastManager raycastManager;
@@ -40,7 +40,7 @@ public class TapToPlaceToggleModel : MonoBehaviour
 
                 spawnedModel = Instantiate(modelPrefab, startPos, rotation);
                 spawnedModel.transform.localScale = Vector3.one * 0.3f;
-
+                // add collider to model so raycast could hit and register second tap. also model doesnt have collider built in.
                 if (spawnedModel.GetComponentInChildren<Collider>() == null)
                 {
                     Renderer meshRenderer = spawnedModel.GetComponentInChildren<Renderer>();
@@ -53,7 +53,7 @@ public class TapToPlaceToggleModel : MonoBehaviour
                 }
 
 
-                // Add Animator dynamically (if needed)
+                // Add Animator dynamically
                 Animator animator = spawnedModel.GetComponent<Animator>();
                 if (animator == null)
                     animator = spawnedModel.AddComponent<Animator>();
@@ -107,7 +107,7 @@ public class TapToPlaceToggleModel : MonoBehaviour
         // Play animation
         if (animator != null)
         {
-            animator.Play("d1");  // Ensure this matches your Animator state name
+            animator.Play("d1"); //d1 state in animator
         }
     }
 
